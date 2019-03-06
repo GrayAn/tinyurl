@@ -1,0 +1,2 @@
+DBURL: postgres://user:password@localhost/database
+URLLength: 5

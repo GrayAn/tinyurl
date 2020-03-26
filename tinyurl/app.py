@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from yaml import load
+from yaml import load, SafeLoader
 
 from database import db
 from views import views_blueprint
@@ -12,7 +12,7 @@ class Application:
         current_directory = os.path.dirname(os.path.realpath(__file__))
         config_file_path = os.path.normpath(os.path.join(current_directory, '..', 'config.yml'))
         with open(config_file_path, 'r') as f:
-            config_data = load(f.read())
+            config_data = load(f.read(), SafeLoader)
 
         self.app = Flask(__name__)
         self.app.register_blueprint(views_blueprint)

@@ -2,7 +2,7 @@ from flask import Flask
 
 from config import get_config
 from database import db
-from views import views_blueprint
+from views import index, shorturl
 
 
 class Application:
@@ -10,7 +10,8 @@ class Application:
         cfg = get_config()
 
         self.app = Flask(__name__)
-        self.app.register_blueprint(views_blueprint)
+        self.app.add_url_rule('/', view_func=index, methods=('GET', 'POST'))
+        self.app.add_url_rule('/<url>', view_func=shorturl)
 
         self.app.config['SQLALCHEMY_DATABASE_URI'] = cfg.db_url
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

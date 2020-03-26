@@ -1,13 +1,10 @@
-from flask import Blueprint, abort, current_app, redirect, render_template, request
+from flask import abort, current_app, redirect, render_template, request
 
 from database import db
 from models import UrlAssociation
 from services import generate_short_url
 
-views_blueprint = Blueprint(__name__, __name__)
 
-
-@views_blueprint.route('/', methods=('GET', 'POST'))
 def index():
     if request.method == 'GET':
         return render_template('request.html')
@@ -20,7 +17,6 @@ def index():
     return render_template('response.html', url=url_association.shorturl)
 
 
-@views_blueprint.route('/<url>')
 def shorturl(url):
     url_association = db.session.query(UrlAssociation). \
             filter_by(shorturl=url).first()

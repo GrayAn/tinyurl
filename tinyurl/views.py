@@ -1,8 +1,8 @@
 from flask import Blueprint, abort, current_app, redirect, render_template, request
-from werkzeug.security import gen_salt
 
 from database import db
 from models import UrlAssociation
+from services import generate_short_url
 
 views_blueprint = Blueprint(__name__, __name__)
 
@@ -14,9 +14,7 @@ def index():
     url_length = current_app.config['TINYURL_URLLENGTH']
     url_association = UrlAssociation()
     url_association.fullurl = request.form['url']
-    # TODO: Checking for short URL collision
-    # TODO: Deterministic algorithm of short URL generation to minimize collisions
-    url_association.shorturl = gen_salt(url_length)
+    url_association.shorturl = generate_short_url(request.form['url'], url_length)
     db.session.add(url_association)
     db.session.commit()
     return render_template('response.html', url=url_association.shorturl)

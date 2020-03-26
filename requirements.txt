@@ -2,3 +2,4 @@ flask
 flask-sqlalchemy
 pyaml
 sqlalchemy
+sqlalchemy-migrate

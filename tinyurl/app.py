@@ -16,7 +16,6 @@ class Application:
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         self.app.config['TINYURL_URLLENGTH'] = cfg.url_length
         db.init_app(self.app)
-        # TODO: Migration script for creating database tables
 
     def run(self, host=None, port=None, debug=None):
         self.app.run(host, port, debug)

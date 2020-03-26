@@ -1,25 +1,20 @@
-import os
-
 from flask import Flask
-from yaml import load, SafeLoader
 
+from config import get_config
 from database import db
 from views import views_blueprint
 
 
 class Application:
     def __init__(self):
-        current_directory = os.path.dirname(os.path.realpath(__file__))
-        config_file_path = os.path.normpath(os.path.join(current_directory, '..', 'config.yml'))
-        with open(config_file_path, 'r') as f:
-            config_data = load(f.read(), SafeLoader)
+        cfg = get_config()
 
         self.app = Flask(__name__)
         self.app.register_blueprint(views_blueprint)
 
-        self.app.config['SQLALCHEMY_DATABASE_URI'] = config_data['DBURL']
+        self.app.config['SQLALCHEMY_DATABASE_URI'] = cfg.db_url
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        self.app.config['TINYURL_URLLENGTH'] = config_data['URLLength']
+        self.app.config['TINYURL_URLLENGTH'] = cfg.url_length
         db.init_app(self.app)
         # TODO: Migration script for creating database tables
 

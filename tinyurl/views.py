@@ -7,7 +7,7 @@ from services import generate_short_url
 
 def index():
     if request.method == 'GET':
-        return render_template('request.html')
+        return render_template('base.html')
 
     fullurl = request.form['url']
     shorturl = generate_short_url(fullurl, current_app.config['TINYURL_URLLENGTH'])
@@ -23,7 +23,7 @@ def index():
         url_association.fullurl = fullurl
         db.session.commit()
 
-    return render_template('response.html', url=url_association.shorturl)
+    return render_template('base.html', url=url_association.shorturl)
 
 
 def shorturl(url):

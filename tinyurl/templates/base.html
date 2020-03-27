@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Tiny URL service</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
-  </head>
-  <body>
-    {% block body %}{% endblock %}
-  </body>
+</head>
+<body>
+<div class="container text-center">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form class="form-horizontal" method="POST">
+                <div class="input-group">
+                    <input class="form-control"
+                           type="text"
+                           name="url"
+                           placeholder="Type your url here"
+                           autocomplete="off"
+                           autofocus>
+                    <span class="input-group-btn">
+                        <input class="btn btn-primary" type="submit" value="OK">
+                    </span>
+                </div>
+            </form>
+        </div>
+        {% if url %}
+        <div class="panel-footer text-center">
+            <div>
+                <a href="/{{ url }}">Your url</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</body>
 </html>
